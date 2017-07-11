@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.dao.HttpSmsDao">
+
+	<select id="queryObject" resultType="io.renren.entity.HttpSmsEntity">
+		select * from http_sms where ID = #{value}
+	</select>
+	
+	<select id="queryObjectByMsgId" resultType="io.renren.entity.HttpSmsEntity">
+		select * from http_sms where MSG_ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.entity.HttpSmsEntity">
+		select * from http_sms 
+		
+		ORDER BY RESP_TIME DESC
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+		
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from http_sms 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.entity.HttpSmsEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into http_sms
+		(
+			`MSG_ID`, 
+			`RES_TIME`, 
+			`RESP_TIME`, 
+			`PUSH_TIME`, 
+			`RRS_TIME`, 
+			`PRS_TIME`, 
+			`STATUS`
+		)
+		values
+		(
+			#{msgId}, 
+			#{resTime}, 
+			#{respTime}, 
+			#{pushTime}, 
+			#{rrsTime}, 
+			#{prsTime}, 
+			#{status}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.entity.HttpSmsEntity">
+		update http_sms 
+		<set>
+			<if test="msgId != null">`MSG_ID` = #{msgId}, </if>
+			<if test="resTime != null">`RES_TIME` = #{resTime}, </if>
+			<if test="respTime != null">`RESP_TIME` = #{respTime}, </if>
+			<if test="pushTime != null">`PUSH_TIME` = #{pushTime}, </if>
+			<if test="rrsTime != null">`RRS_TIME` = #{rrsTime}, </if>
+			<if test="prsTime != null">`PRS_TIME` = #{prsTime}, </if>
+			<if test="status != null">`STATUS` = #{status}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from http_sms where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from http_sms where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
