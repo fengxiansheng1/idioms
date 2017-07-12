@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.dao.SysIdiomsDao">
+
+	<select id="queryObject" resultType="io.renren.entity.SysIdiomsEntity">
+		select * from sys_idioms where idioms_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.entity.SysIdiomsEntity">
+		select * from sys_idioms 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from sys_idioms 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.entity.SysIdiomsEntity">
+		insert into sys_idioms
+		(
+			`idioms_id`, 
+			`name`, 
+			`description`, 
+			`type`, 
+			`is_deleted`, 
+			`create_user_id`, 
+			`create_time`
+		)
+		values
+		(
+			#{idiomsId}, 
+			#{name}, 
+			#{description}, 
+			#{type}, 
+			#{isDeleted}, 
+			#{createUserId}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.entity.SysIdiomsEntity">
+		update sys_idioms 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="description != null">`description` = #{description}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="isDeleted != null">`is_deleted` = #{isDeleted}, </if>
+			<if test="createUserId != null">`create_user_id` = #{createUserId}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where idioms_id = #{idiomsId}
+	</update>
+	
+	<delete id="delete">
+		delete from sys_idioms where idioms_id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from sys_idioms where idioms_id in 
+		<foreach item="idiomsId" collection="array" open="(" separator="," close=")">
+			#{idiomsId}
+		</foreach>
+	</delete>
+
+</mapper>
