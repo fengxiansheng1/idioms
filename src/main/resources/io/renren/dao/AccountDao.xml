@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.dao.AccountDao">
+
+	<select id="queryObject" resultType="io.renren.entity.AccountEntity">
+		select * from account where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="io.renren.entity.AccountEntity">
+		select * from account 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from account 
+	</select>
+	 
+	<insert id="save" parameterType="io.renren.entity.AccountEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into account
+		(
+			`open_id_wx`, 
+			`nick_name`, 
+			`real_name`, 
+			`mobile`, 
+			`status`, 
+			`create_user_id`, 
+			`create_time`
+		)
+		values
+		(
+			#{openIdWx}, 
+			#{nickName}, 
+			#{realName}, 
+			#{mobile}, 
+			#{status}, 
+			#{createUserId}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="io.renren.entity.AccountEntity">
+		update account 
+		<set>
+			<if test="openIdWx != null">`open_id_wx` = #{openIdWx}, </if>
+			<if test="nickName != null">`nick_name` = #{nickName}, </if>
+			<if test="realName != null">`real_name` = #{realName}, </if>
+			<if test="mobile != null">`mobile` = #{mobile}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="createUserId != null">`create_user_id` = #{createUserId}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from account where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from account where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
