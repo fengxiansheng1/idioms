@@ -39,28 +39,17 @@
 			</div>
 									<div class="form-group">
 			   	<div class="col-sm-2 control-label">成语类型</div>
-			   	<div class="col-sm-10">
+			   <!-- 	<div class="col-sm-10">
 			      <input type="text" class="form-control" v-model="sysIdioms.type" placeholder="4:四字成语，5，6，……11字成语"/>
-			    </div>
+			    </div> -->
+			    <label class="radio-inline">
+				  <input type="radio" name="type" value="3" v-model="sysIdioms.type"/>三字成语
+				</label>
+				 <label class="radio-inline">
+				  <input type="radio" name="type" value="4" v-model="sysIdioms.type"/>四字成语
+				</label>
 			</div>
-							<!-- 		<div class="form-group">
-			   	<div class="col-sm-2 control-label">0:未删除，1：已经删除</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="sysIdioms.isDeleted" placeholder="0:未删除，1：已经删除"/>
-			    </div>
-			</div> -->
-			<!-- 						<div class="form-group">
-			   	<div class="col-sm-2 control-label"></div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="sysIdioms.createUserId" placeholder=""/>
-			    </div>
-			</div> -->
-				<!-- 					<div class="form-group">
-			   	<div class="col-sm-2 control-label"></div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="sysIdioms.createTime" placeholder=""/>
-			    </div>
-			</div> -->
+				
 							<div class="form-group">
 				<div class="col-sm-2 control-label"></div> 
 				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
