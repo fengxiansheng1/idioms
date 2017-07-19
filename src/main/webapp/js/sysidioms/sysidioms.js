@@ -16,6 +16,25 @@ $(function () {
 				if(value === 5){
 					return '<span class="label label-warning">五字成语</span>';
 				}
+				if(value === 6){
+					return '<span class="label label-warning">六字成语</span>';
+				}
+				if(value === 7){
+					return '<span class="label label-warning">七字成语</span>';
+				}
+				if(value === 8){
+					return '<span class="label label-warning">八字成语</span>';
+				}
+				if(value === 9){
+					return '<span class="label label-warning">九字成语</span>';
+				}
+				if(value === 10){
+					return '<span class="label label-warning">十字成语</span>';
+				}
+				if(value === 11){
+					return '<span class="label label-warning">十一字成语</span>';
+				}
+				
 				} }, 			
 			{ label: '状态', name: 'isDeleted', width: 80,formatter: function(value, options, row){
 				return value === 1 ? 
